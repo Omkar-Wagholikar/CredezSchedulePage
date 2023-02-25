@@ -17,11 +17,12 @@ class EventsList extends StatelessWidget {
       itemCount: controller.allEvents.length,
       itemBuilder: (context, index) {
         return Padding(
-          padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
           child: IndividualEvent(
               controller.allEvents[index].name,
               controller.allEvents[index].venue,
-              controller.allEvents[index].teamStatus),
+              controller.allEvents[index].teamStatus,
+              controller.allEvents[index].day.toString()),
         );
       },
     );

@@ -4,7 +4,10 @@ class IndividualEvent extends StatelessWidget {
   late String name;
   late String venue;
   late String teamStatus;
-  IndividualEvent(this.name, this.venue, this.teamStatus, {super.key});
+
+  late String date;
+  IndividualEvent(this.name, this.venue, this.teamStatus, this.date,
+      {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +37,14 @@ class IndividualEvent extends StatelessWidget {
                         style:
                             const TextStyle(color: Colors.white, fontSize: 25)),
                     const SizedBox(
-                      height: 18,
+                      height: 11,
                     ),
                     Text(venue,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                        )),
+                    Text(date,
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 20,
