@@ -7,6 +7,7 @@ class Event {
   final String venue;
   final String description;
   final int money;
+  final String backInfo;
   Event(
     this.name,
     this.id,
@@ -16,5 +17,6 @@ class Event {
     this.money,
     this.description,
     this.venue,
+    this.backInfo,
   );
 }
