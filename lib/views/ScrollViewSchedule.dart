@@ -32,25 +32,25 @@ class _scrollViewTabBarState extends State<scrollViewTabBar> {
           children: [
             SizedBox(
                 height: 111,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: eventController.allDates.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: SwitcherWidget(
-                        date: eventController.allDates[index].date,
-                        fullDay: eventController.allDates[index].day,
-                        halfday:
-                            eventController.allDates[index].day.substring(0, 3),
-                        isFirst: eventController.activeDates[index],
-                        month: eventController.allDates[index].month,
-                        year: eventController.allDates[index].year,
-                        index_: index,
-                      ),
-                    );
-                  },
-                )),
+                child: Obx(() => ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: eventController.allDates.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Obx(() => SwitcherWidget(
+                                date: eventController.allDates[index].date,
+                                fullDay: eventController.allDates[index].day,
+                                halfday: eventController.allDates[index].day
+                                    .substring(0, 3),
+                                isFirst: eventController.activeDates[index],
+                                month: eventController.allDates[index].month,
+                                year: eventController.allDates[index].year,
+                                index_: index,
+                              )),
+                        );
+                      },
+                    ))),
             Expanded(
               child: SfCalendar(
                 controller: calenderController,
@@ -65,7 +65,7 @@ class _scrollViewTabBarState extends State<scrollViewTabBar> {
             ElevatedButton(
                 onPressed: () => setState(() {
                       print("Start jump");
-                      calenderController.displayDate = DateTime(2023, 3, 11);
+                      calenderController.displayDate = DateTime(2023, 3, 12);
                       print("End jump");
                     }),
                 child: const Text("123456"))
@@ -76,7 +76,7 @@ class _scrollViewTabBarState extends State<scrollViewTabBar> {
   }
 }
 
-class SwitcherWidget extends StatefulWidget {
+class SwitcherWidget extends StatelessWidget {
   final String halfday;
   final String fullDay;
   final String month;
@@ -95,46 +95,27 @@ class SwitcherWidget extends StatefulWidget {
       required this.isFirst,
       required this.index_});
 
-  @override
-  State<SwitcherWidget> createState() => _SwitcherWidgetState(
-      halfday, fullDay, month, date, year, isFirst, index_);
-}
-
-class _SwitcherWidgetState extends State<SwitcherWidget> {
-  final String halfday;
-  final String fullDay;
-  final String month;
-  final int date;
-  final String year;
-  bool isFirst = true;
-  final int index_;
-
-  _SwitcherWidgetState(this.halfday, this.fullDay, this.month, this.date,
-      this.year, this.isFirst, this.index_);
   final eventController = Get.put(eventDateController());
+
   @override
   Widget build(BuildContext context) {
     print("BUILT WIDGET: $halfday $fullDay $month $date $year");
     return InkWell(
       child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 500),
-        transitionBuilder: (Widget child, Animation<double> animation) {
-          return SlideTransition(
-            position: Tween<Offset>(
-              begin: const Offset(1.0, 0.0),
-              end: const Offset(0.0, 0.0),
-            ).animate(animation),
-            child: child,
-          );
-        },
+        // transitionBuilder: (Widget child, Animation<double> animation) {
+        //   return SlideTransition(
+        //     position: Tween<Offset>(
+        //       begin: const Offset(1.0, 0.0),
+        //       end: const Offset(0.0, 0.0),
+        //     ).animate(animation),
+        //     child: child,
+        //   );
+        // },
         child: isFirst == true
             ? smallDate(day: halfday, date: date)
             : bigDate(weekDay: fullDay, month: month, date: date, year: year),
       ),
-      // onTap: () => setState(() {
-
-      //   isFirst = isFirst ? false : true;
-      // }),
       onTap: () => eventController.changeSelectedDate(index_),
     );
   }

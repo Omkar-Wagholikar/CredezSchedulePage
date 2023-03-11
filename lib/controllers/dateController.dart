@@ -7,6 +7,7 @@ class eventDateController extends GetxController {
   var currentDate = DateTime.now().obs;
   var activeDates = <bool>[].obs;
   RxInt newIndex = 0.obs;
+  
   @override
   void onInit() {
     fetchDates();
