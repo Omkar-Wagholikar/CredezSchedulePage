@@ -5,6 +5,7 @@ import 'BigDate.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:laptop/controllers/dateController.dart';
 import 'package:get/get.dart';
+import 'package:flip_card/flip_card.dart';
 
 class scrollViewTabBar extends StatelessWidget {
   @override
@@ -16,54 +17,59 @@ class scrollViewTabBar extends StatelessWidget {
     print(
         "DATE: ${eventController.allDates[1].date}\nDAY: ${eventController.allDates[1].day}\nHALFDAY: ${eventController.allDates[1].day.substring(0, 3)}\nMONTH: ${eventController.allDates[1].month}\nYEAR: ${eventController.allDates[1].year}\nTop complete");
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Here ya go!"),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            SizedBox(
-                height: 111,
-                child: Obx(() => ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: eventController.allDates.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Obx(() => SwitcherWidget(
-                                date: eventController.allDates[index].date,
-                                fullDay: eventController.allDates[index].day,
-                                halfday: eventController.allDates[index].day
-                                    .substring(0, 3),
-                                isFirst: eventController.activeDates[index],
-                                month: eventController.allDates[index].month,
-                                year: eventController.allDates[index].year,
-                                index_: index,
-                                calenderController: calenderController,
-                              )),
-                        );
-                      },
-                    ))),
-            Expanded(
-              child: SfCalendar(
-                appointmentBuilder: appoint,
-                dataSource: MeetingDataSource(getAppointments()),
-                controller: calenderController,
-                view: CalendarView.day,
-                
-                timeSlotViewSettings: const TimeSlotViewSettings(
-                  startHour: 7,
-                  endHour: 21,
-                  timeFormat: 'HH:mm',
-                  timeInterval: Duration(minutes: 30),
-                  timeTextStyle: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.black),
+    return GetMaterialApp(
+      // darkTheme: ThemeData(brightness: Brightness.dark),
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text("Here ya go!"),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              SizedBox(
+                  height: 111,
+                  child: Obx(() => ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: eventController.allDates.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Obx(() => SwitcherWidget(
+                                  date: eventController.allDates[index].date,
+                                  fullDay: eventController.allDates[index].day,
+                                  halfday: eventController.allDates[index].day
+                                      .substring(0, 3),
+                                  isFirst: eventController.activeDates[index],
+                                  month: eventController.allDates[index].month,
+                                  year: eventController.allDates[index].year,
+                                  index_: index,
+                                  calenderController: calenderController,
+                                )),
+                          );
+                        },
+                      ))),
+              Expanded(
+                child: SfCalendar(
+                  appointmentBuilder: appoint,
+                  dataSource: MeetingDataSource(getAppointments()),
+                  controller: calenderController,
+                  view: CalendarView.day,
+                  timeSlotViewSettings: const TimeSlotViewSettings(
+                    startHour: 7,
+                    endHour: 21,
+                    timeFormat: 'HH:mm',
+                    timeInterval: Duration(minutes: 30),
+                    timeTextStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      fontFamily: 'SolThin',
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -141,21 +147,46 @@ class MeetingDataSource extends CalendarDataSource {
 Widget appoint(BuildContext context,
     CalendarAppointmentDetails calendarAppointmentDetails) {
   final Appointment appointment = calendarAppointmentDetails.appointments.first;
-  return Container(
-    color: appointment.color,
-    child: Row(
-      children: <Widget>[
-        SizedBox(
-          child: Text(appointment.subject),
-        ),
-        const SizedBox(
-          child: Icon(
-            Icons.ac_unit,
-            size: 45,
-            color: Colors.white,
+  return FlipCard(
+    front: Container(
+      // color: appointment.color,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: appointment.color,
+            spreadRadius: 1,
+            blurRadius: 3,
+            offset: const Offset(1, 3),
           ),
-        )
-      ],
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                child: Text(
+                  appointment.subject,
+                  style: const TextStyle(fontFamily: 'normalmars'),
+                ),
+              ),
+            ),
+            const SizedBox(
+              child: Icon(
+                Icons.ac_unit,
+                size: 45,
+                color: Colors.black,
+              ),
+            )
+          ],
+        ),
+      ),
     ),
+    back: Placeholder(),
   );
 }
