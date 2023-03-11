@@ -6,22 +6,16 @@ import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:laptop/controllers/dateController.dart';
 import 'package:get/get.dart';
 
-class scrollViewTabBar extends StatefulWidget {
-  const scrollViewTabBar({super.key});
-
-  @override
-  State<scrollViewTabBar> createState() => _scrollViewTabBarState();
-}
-
-class _scrollViewTabBarState extends State<scrollViewTabBar> {
+class scrollViewTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final eventController = Get.put(eventDateController());
-    var currentTime = DateTime(2023, 3, 1);
-    var calenderController = CalendarController();
+    final CalendarController calenderController = CalendarController();
+
     print("inside topWidget: \nLENGTH: ${eventController.allDates.length}");
     print(
         "DATE: ${eventController.allDates[1].date}\nDAY: ${eventController.allDates[1].day}\nHALFDAY: ${eventController.allDates[1].day.substring(0, 3)}\nMONTH: ${eventController.allDates[1].month}\nYEAR: ${eventController.allDates[1].year}\nTop complete");
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Here ya go!"),
@@ -47,6 +41,7 @@ class _scrollViewTabBarState extends State<scrollViewTabBar> {
                                 month: eventController.allDates[index].month,
                                 year: eventController.allDates[index].year,
                                 index_: index,
+                                calenderController: calenderController,
                               )),
                         );
                       },
@@ -54,21 +49,12 @@ class _scrollViewTabBarState extends State<scrollViewTabBar> {
             Expanded(
               child: SfCalendar(
                 controller: calenderController,
+
                 view: CalendarView.day,
-                // initialDisplayDate: DateTime(2023, 3, 11),
-                // initialDisplayDate: currentTime,
-                initialSelectedDate: DateTime(2023, 3, 15),
                 timeSlotViewSettings:
                     const TimeSlotViewSettings(endHour: 9 + 12, startHour: 7),
               ),
             ),
-            ElevatedButton(
-                onPressed: () => setState(() {
-                      print("Start jump");
-                      calenderController.displayDate = DateTime(2023, 3, 12);
-                      print("End jump");
-                    }),
-                child: const Text("123456"))
           ],
         ),
       ),
@@ -77,6 +63,7 @@ class _scrollViewTabBarState extends State<scrollViewTabBar> {
 }
 
 class SwitcherWidget extends StatelessWidget {
+  final CalendarController calenderController;
   final String halfday;
   final String fullDay;
   final String month;
@@ -93,7 +80,8 @@ class SwitcherWidget extends StatelessWidget {
       required this.date,
       required this.year,
       required this.isFirst,
-      required this.index_});
+      required this.index_,
+      required this.calenderController});
 
   final eventController = Get.put(eventDateController());
 
@@ -101,22 +89,19 @@ class SwitcherWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     print("BUILT WIDGET: $halfday $fullDay $month $date $year");
     return InkWell(
-      child: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 500),
-        // transitionBuilder: (Widget child, Animation<double> animation) {
-        //   return SlideTransition(
-        //     position: Tween<Offset>(
-        //       begin: const Offset(1.0, 0.0),
-        //       end: const Offset(0.0, 0.0),
-        //     ).animate(animation),
-        //     child: child,
-        //   );
-        // },
-        child: isFirst == true
-            ? smallDate(day: halfday, date: date)
-            : bigDate(weekDay: fullDay, month: month, date: date, year: year),
-      ),
-      onTap: () => eventController.changeSelectedDate(index_),
-    );
+        child: AnimatedSwitcher(
+          transitionBuilder: (widget, animation) => ScaleTransition(
+            scale: animation,
+            child: widget,
+          ),
+          duration: const Duration(milliseconds: 500),
+          child: isFirst == true
+              ? smallDate(day: halfday, date: date)
+              : bigDate(weekDay: fullDay, month: month, date: date, year: year),
+        ),
+        onTap: () {
+          eventController.changeSelectedDate(index_);
+          calenderController.displayDate = DateTime(2023, 3, date);
+        });
   }
 }

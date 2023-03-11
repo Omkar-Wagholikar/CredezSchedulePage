@@ -106,29 +106,4 @@ class SchedulePage extends StatelessWidget {
       ),
     );
   }
-
-  // return Scaffold(
-  //     body: Row(
-  //       children: [
-  //         // Container(
-  //         //   height: double.infinity,
-  //         //   color: Color.fromRGBO(53, 53, 53, 1),
-  //         //   width: MediaQuery.of(context).size.width * 0.20,
-  //         //   child: SideStepper(),
-  //         //   // child: Container(),
-  //         // ),
-  //         // Container(
-  //         //   height: double.infinity,
-  //         //   width: MediaQuery.of(context).size.width * 0.80,
-  //         //   child: EventsList(ratio),
-  //         // ),
-  //         Container(
-  //           height: double.infinity,
-  //           width: MediaQuery.of(context).size.width,
-  //           child: T2Tabs(),
-  //         )
-  //       ],
-  //     ),
-  //   );
-  // }
 }
