@@ -43,9 +43,10 @@ class _scrollViewTabBarState extends State<scrollViewTabBar> {
                         fullDay: eventController.allDates[index].day,
                         halfday:
                             eventController.allDates[index].day.substring(0, 3),
-                        isFirst: eventController.allDates[index].isCurrent,
+                        isFirst: eventController.activeDates[index],
                         month: eventController.allDates[index].month,
                         year: eventController.allDates[index].year,
+                        index_: index,
                       ),
                     );
                   },
@@ -82,6 +83,7 @@ class SwitcherWidget extends StatefulWidget {
   final int date;
   final String year;
   bool isFirst;
+  final int index_;
 
   SwitcherWidget(
       {super.key,
@@ -90,11 +92,12 @@ class SwitcherWidget extends StatefulWidget {
       required this.month,
       required this.date,
       required this.year,
-      required this.isFirst});
+      required this.isFirst,
+      required this.index_});
 
   @override
-  State<SwitcherWidget> createState() =>
-      _SwitcherWidgetState(halfday, fullDay, month, date, year, isFirst);
+  State<SwitcherWidget> createState() => _SwitcherWidgetState(
+      halfday, fullDay, month, date, year, isFirst, index_);
 }
 
 class _SwitcherWidgetState extends State<SwitcherWidget> {
@@ -104,10 +107,11 @@ class _SwitcherWidgetState extends State<SwitcherWidget> {
   final int date;
   final String year;
   bool isFirst = true;
+  final int index_;
 
   _SwitcherWidgetState(this.halfday, this.fullDay, this.month, this.date,
-      this.year, this.isFirst);
-
+      this.year, this.isFirst, this.index_);
+  final eventController = Get.put(eventDateController());
   @override
   Widget build(BuildContext context) {
     print("BUILT WIDGET: $halfday $fullDay $month $date $year");
@@ -127,9 +131,11 @@ class _SwitcherWidgetState extends State<SwitcherWidget> {
             ? smallDate(day: halfday, date: date)
             : bigDate(weekDay: fullDay, month: month, date: date, year: year),
       ),
-      onTap: () => setState(() {
-        isFirst = isFirst ? false : true;
-      }),
+      // onTap: () => setState(() {
+
+      //   isFirst = isFirst ? false : true;
+      // }),
+      onTap: () => eventController.changeSelectedDate(index_),
     );
   }
 }
