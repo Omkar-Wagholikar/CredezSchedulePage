@@ -22,9 +22,12 @@ class eventDateController extends GetxController {
 
   void fetchDates() async {
     allDates = RxList([
-      Dates("MONDAY", 2, true, "MAR", "2022"),
-      Dates("TUESDAY", 3, false, "MAR", "2022"),
-      Dates("WEDNESDAY", 4, true, "MAR", "2022"),
+      Dates("DataWiz", "MONDAY", 2, "MAR", "2022",
+          DateTime(2023, 03, 2, 10, 0, 0), DateTime(2023, 03, 2, 11, 0, 0)),
+      Dates("not DataWiz", "TUESDAY", 3, "MAR", "2022",
+          DateTime(2023, 03, 3, 12, 0, 0), DateTime(2023, 03, 3, 13, 0, 0)),
+      Dates("maybe DataWiz", "WEDNESDAY", 4, "MAR", "2022",
+          DateTime(2023, 03, 4, 14, 0, 0), DateTime(2023, 03, 4, 15, 30, 0)),
     ]);
 
     currentDate = DateTime(2022, 3, allDates[0].date) as Rx<DateTime>;
@@ -37,11 +40,9 @@ class eventDateController extends GetxController {
   }
 
   void changeSelectedDate(newIndex) {
-    print("This is the new Date: $newIndex");
+    print("This is the new Date index: $newIndex");
     activeDates.fillRange(0, activeDates.length, true);
     activeDates[newIndex] = false;
     update(activeDates);
   }
-
-  
 }

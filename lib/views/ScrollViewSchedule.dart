@@ -48,11 +48,19 @@ class scrollViewTabBar extends StatelessWidget {
                     ))),
             Expanded(
               child: SfCalendar(
+                appointmentBuilder: appoint,
+                dataSource: MeetingDataSource(getAppointments()),
                 controller: calenderController,
-
                 view: CalendarView.day,
-                timeSlotViewSettings:
-                    const TimeSlotViewSettings(endHour: 9 + 12, startHour: 7),
+                
+                timeSlotViewSettings: const TimeSlotViewSettings(
+                  startHour: 7,
+                  endHour: 21,
+                  timeFormat: 'HH:mm',
+                  timeInterval: Duration(minutes: 30),
+                  timeTextStyle: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.black),
+                ),
               ),
             ),
           ],
@@ -90,10 +98,6 @@ class SwitcherWidget extends StatelessWidget {
     print("BUILT WIDGET: $halfday $fullDay $month $date $year");
     return InkWell(
         child: AnimatedSwitcher(
-          transitionBuilder: (widget, animation) => ScaleTransition(
-            scale: animation,
-            child: widget,
-          ),
           duration: const Duration(milliseconds: 500),
           child: isFirst == true
               ? smallDate(day: halfday, date: date)
@@ -104,4 +108,54 @@ class SwitcherWidget extends StatelessWidget {
           calenderController.displayDate = DateTime(2023, 3, date);
         });
   }
+}
+
+final eventController = Get.put(eventDateController());
+
+List<Appointment> getAppointments() {
+  List<Appointment> meetings = <Appointment>[];
+  final DateTime today = DateTime.now();
+  final DateTime startTime =
+      DateTime(today.year, today.month, today.day, 9, 0, 0);
+  final DateTime endTime = startTime.add(const Duration(hours: 2));
+
+  eventController.allDates.forEach((event) {
+    print("NAME: ${event.name}");
+    print("START TIME: ${event.startTime}");
+    print("ENDING TIME: ${event.endTime}");
+    print("-------------------");
+    meetings.add(Appointment(
+        startTime: event.startTime,
+        endTime: event.endTime,
+        subject: event.name));
+  });
+  return meetings;
+}
+
+class MeetingDataSource extends CalendarDataSource {
+  MeetingDataSource(List<Appointment> source) {
+    appointments = source;
+  }
+}
+
+Widget appoint(BuildContext context,
+    CalendarAppointmentDetails calendarAppointmentDetails) {
+  final Appointment appointment = calendarAppointmentDetails.appointments.first;
+  return Container(
+    color: appointment.color,
+    child: Row(
+      children: <Widget>[
+        SizedBox(
+          child: Text(appointment.subject),
+        ),
+        const SizedBox(
+          child: Icon(
+            Icons.ac_unit,
+            size: 45,
+            color: Colors.white,
+          ),
+        )
+      ],
+    ),
+  );
 }
