@@ -1,11 +1,15 @@
 // Working anim
 import "package:flutter/material.dart";
-import 'SmallDate.dart';
-import 'BigDate.dart';
+// import 'package:laptop/FinScheduleScreen/views/SwichDate.dart';
+// import '../../views/SmallDate.dart';
+// import '../../views/BigDate.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
-import 'package:laptop/controllers/dateController.dart';
+// import 'package:laptop/FinScheduleScreen/controllers/dateController.dart';
 import 'package:get/get.dart';
 import 'package:flip_card/flip_card.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../controllers/dateController.dart';
+import 'SwichDate.dart';
 
 class scrollViewTabBar extends StatelessWidget {
   @override
@@ -20,35 +24,14 @@ class scrollViewTabBar extends StatelessWidget {
     return GetMaterialApp(
       // darkTheme: ThemeData(brightness: Brightness.dark),
       home: Scaffold(
+        // backgroundColor: Color.fromARGB(255, 83, 83, 83),
         appBar: AppBar(
           title: const Text("Here ya go!"),
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
+          child: Stack(
             children: [
-              SizedBox(
-                  height: 111,
-                  child: Obx(() => ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: eventController.allDates.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Obx(() => SwitcherWidget(
-                                  date: eventController.allDates[index].date,
-                                  fullDay: eventController.allDates[index].day,
-                                  halfday: eventController.allDates[index].day
-                                      .substring(0, 3),
-                                  isFirst: eventController.activeDates[index],
-                                  month: eventController.allDates[index].month,
-                                  year: eventController.allDates[index].year,
-                                  index_: index,
-                                  calenderController: calenderController,
-                                )),
-                          );
-                        },
-                      ))),
               Expanded(
                 child: SfCalendar(
                   appointmentBuilder: appoint,
@@ -68,51 +51,45 @@ class scrollViewTabBar extends StatelessWidget {
                   ),
                 ),
               ),
+              Container(
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 6),
+                  child: SizedBox(
+                      height: 111,
+                      child: Obx(() => ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: eventController.allDates.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Obx(() => SwitcherWidget(
+                                      date:
+                                          eventController.allDates[index].date,
+                                      fullDay:
+                                          eventController.allDates[index].day,
+                                      halfday: eventController
+                                          .allDates[index].day
+                                          .substring(0, 3),
+                                      isFirst:
+                                          eventController.activeDates[index],
+                                      month:
+                                          eventController.allDates[index].month,
+                                      year:
+                                          eventController.allDates[index].year,
+                                      index_: index,
+                                      calenderController: calenderController,
+                                    )),
+                              );
+                            },
+                          ))),
+                ),
+              ),
             ],
           ),
         ),
       ),
     );
-  }
-}
-
-class SwitcherWidget extends StatelessWidget {
-  final CalendarController calenderController;
-  final String halfday;
-  final String fullDay;
-  final String month;
-  final int date;
-  final String year;
-  bool isFirst;
-  final int index_;
-
-  SwitcherWidget(
-      {super.key,
-      required this.halfday,
-      required this.fullDay,
-      required this.month,
-      required this.date,
-      required this.year,
-      required this.isFirst,
-      required this.index_,
-      required this.calenderController});
-
-  final eventController = Get.put(eventDateController());
-
-  @override
-  Widget build(BuildContext context) {
-    print("BUILT WIDGET: $halfday $fullDay $month $date $year");
-    return InkWell(
-        child: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 500),
-          child: isFirst == true
-              ? smallDate(day: halfday, date: date)
-              : bigDate(weekDay: fullDay, month: month, date: date, year: year),
-        ),
-        onTap: () {
-          eventController.changeSelectedDate(index_);
-          calenderController.displayDate = DateTime(2023, 3, date);
-        });
   }
 }
 
@@ -155,7 +132,7 @@ Widget appoint(BuildContext context,
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color: appointment.color,
+            color: Colors.redAccent.withOpacity(0.5),
             spreadRadius: 1,
             blurRadius: 3,
             offset: const Offset(1, 3),
@@ -172,7 +149,8 @@ Widget appoint(BuildContext context,
               child: SizedBox(
                 child: Text(
                   appointment.subject,
-                  style: const TextStyle(fontFamily: 'normalmars'),
+                  style: const TextStyle(
+                      fontFamily: 'solthin', fontWeight: FontWeight.bold),
                 ),
               ),
             ),

@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:google_fonts/google_fonts.dart";
 
 class bigDate extends StatelessWidget {
   String weekDay;
@@ -49,12 +50,22 @@ class bigDate extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  weekDay,
-                  style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
+                Padding(
+                  // padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
+                  padding: const EdgeInsets.all(0),
+                  child: Text(
+                    weekDay,
+                    // style: const TextStyle(
+                    //     fontSize: 20,
+                    //     fontWeight: FontWeight.bold,
+                    //     color: Colors.white),
+                    style: GoogleFonts.playfairDisplay(
+                      textStyle: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 8),
                 Row(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+// import '../models/event.dart';
 import '../models/event.dart';
+// import '../models/event.dart';
 
 class ScheduleController extends GetxController {
   var allEvents = <Event>[].obs;

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:laptop/views/calender.dart';
-import 'package:laptop/views/draggableSchedule.dart';
-import 'package:laptop/views/scheduleEventsList.dart';
-import 'views/ScheduleSideStepper.dart';
-import 'views/verticalScheduleTabs.dart';
-import 'views/ScrollViewSchedule.dart';
+// import 'package:laptop/views/calender.dart';
+// import 'package:laptop/views/draggableSchedule.dart';
+// import 'package:laptop/views/scheduleEventsList.dart';
+// import 'views/ScheduleSideStepper.dart';
+// import 'views/verticalScheduleTabs.dart';
+import 'FinScheduleScreen/views/ScrollViewSchedule.dart';
 
 void main() {
   runApp(const MyApp());
@@ -45,34 +45,34 @@ class SchedulePage extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => T2Tabs()),
-                );
-              },
-              child: const Text("Schedules 1.0"),
-            ),
-            ElevatedButton(
-              onPressed: () => showModalBottomSheet(
-                  backgroundColor: Colors.transparent,
-                  // enableDrag: true,
+            // ElevatedButton(
+            //   onPressed: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => T2Tabs()),
+            //     );
+            //   },
+            //   child: const Text("Schedules 1.0"),
+            // ),
+            // ElevatedButton(
+            //   onPressed: () => showModalBottomSheet(
+            //       backgroundColor: Colors.transparent,
+            //       // enableDrag: true,
 
-                  isScrollControlled: true,
-                  context: context,
-                  builder: (context) => const DraggableSchedulePage()),
-              child: const Text("Schedules 2.0"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SFCAL()),
-                );
-              },
-              child: const Text("Schedules 3.0"),
-            ),
+            //       isScrollControlled: true,
+            //       context: context,
+            //       builder: (context) => const DraggableSchedulePage()),
+            //   child: const Text("Schedules 2.0"),
+            // ),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => SFCAL()),
+            //     );
+            //   },
+            //   child: const Text("Schedules 3.0"),
+            // ),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -81,6 +81,16 @@ class SchedulePage extends StatelessWidget {
                 );
               },
               child: const Text("Schedules 4.0"),
+            ),
+            ElevatedButton(
+              onPressed: () => showModalBottomSheet(
+                  backgroundColor: Colors.transparent,
+                  // enableDrag: true,
+
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (context) => scrollViewTabBar()),
+              child: const Text("Schedules 5.0"),
             ),
           ],
         ),

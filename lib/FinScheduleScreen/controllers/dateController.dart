@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../models/dateValues.dart';
+// import '../models/dateValues.dart';
+// import '../models/dateValues.dart';
 
 class eventDateController extends GetxController {
   var allDates = <Dates>[].obs;
@@ -28,6 +31,8 @@ class eventDateController extends GetxController {
           DateTime(2023, 03, 3, 12, 0, 0), DateTime(2023, 03, 3, 13, 0, 0)),
       Dates("maybe DataWiz", "WEDNESDAY", 4, "MAR", "2022",
           DateTime(2023, 03, 4, 14, 0, 0), DateTime(2023, 03, 4, 15, 30, 0)),
+      Dates("maybe DataWiz", "WEDNESDAY", 4, "MAR", "2022",
+          DateTime(2023, 03, 4, 16, 0, 0), DateTime(2023, 03, 4, 17, 00, 0)),
     ]);
 
     currentDate = DateTime(2022, 3, allDates[0].date) as Rx<DateTime>;
