@@ -55,10 +55,6 @@ class bigDate extends StatelessWidget {
                   padding: const EdgeInsets.all(0),
                   child: Text(
                     weekDay,
-                    // style: const TextStyle(
-                    //     fontSize: 20,
-                    //     fontWeight: FontWeight.bold,
-                    //     color: Colors.white),
                     style: GoogleFonts.playfairDisplay(
                       textStyle: const TextStyle(
                           fontSize: 20,

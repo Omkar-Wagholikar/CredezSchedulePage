@@ -45,34 +45,6 @@ class SchedulePage extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            // ElevatedButton(
-            //   onPressed: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(builder: (context) => T2Tabs()),
-            //     );
-            //   },
-            //   child: const Text("Schedules 1.0"),
-            // ),
-            // ElevatedButton(
-            //   onPressed: () => showModalBottomSheet(
-            //       backgroundColor: Colors.transparent,
-            //       // enableDrag: true,
-
-            //       isScrollControlled: true,
-            //       context: context,
-            //       builder: (context) => const DraggableSchedulePage()),
-            //   child: const Text("Schedules 2.0"),
-            // ),
-            // ElevatedButton(
-            //   onPressed: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(builder: (context) => SFCAL()),
-            //     );
-            //   },
-            //   child: const Text("Schedules 3.0"),
-            // ),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
