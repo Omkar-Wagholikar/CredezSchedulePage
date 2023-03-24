@@ -28,15 +28,16 @@ class eventDateController extends GetxController {
 
   void fetchDates() async {
     allEventTimes = RxList([
-      Dates("DataWiz", "MONDAY", 2, "MAR", "2022",
+      Dates("DataWiz", "MONDAY", 2, "MAR", "2023",
           DateTime(2023, 03, 2, 11, 0, 0), DateTime(2023, 03, 2, 12, 0, 0)),
-      Dates("not DataWiz", "TUESDAY", 3, "MAR", "2022",
+
+      Dates("not DataWiz", "TUESDAY", 3, "MAR", "2023",
           DateTime(2023, 03, 3, 12, 0, 0), DateTime(2023, 03, 3, 13, 0, 0)),
-      Dates("maybe DataWiz", "WEDNESDAY", 4, "MAR", "2022",
+      Dates("maybe DataWiz", "WEDNESDAY", 4, "MAR", "2023",
           DateTime(2023, 03, 4, 14, 0, 0), DateTime(2023, 03, 4, 15, 30, 0)),
-      Dates("maybe DataWiz", "WEDNESDAY", 4, "MAR", "2022",
+      Dates("maybe DataWiz", "WEDNESDAY", 4, "MAR", "2023",
           DateTime(2023, 03, 4, 14, 0, 0), DateTime(2023, 03, 4, 15, 30, 0)),
-      Dates("maybe DataWiz", "WEDNESDAY", 4, "MAR", "2022",
+      Dates("maybe DataWiz", "WEDNESDAY", 4, "MAR", "2023",
           DateTime(2023, 03, 4, 16, 0, 0), DateTime(2023, 03, 4, 17, 00, 0)),
     ]);
 
@@ -48,7 +49,6 @@ class eventDateController extends GetxController {
 
     print("----------------------------------------------");
     for (Dates event in allEventTimes) {
-      // itemList.any((item) => item.id == idToCheck)
       if (allDates.any((element) => element.date == event.date)) {
       } else {
         allDates.add(event);

@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:laptop/views/calender.dart';
-// import 'package:laptop/views/draggableSchedule.dart';
-// import 'package:laptop/views/scheduleEventsList.dart';
-// import 'views/ScheduleSideStepper.dart';
-// import 'views/verticalScheduleTabs.dart';
+import 'package:laptop/pano.dart';
 import 'FinScheduleScreen/views/ScrollViewSchedule.dart';
 
 void main() {
@@ -26,15 +22,10 @@ class MyApp extends StatelessWidget {
 }
 
 class SchedulePage extends StatelessWidget {
-  // const SchedulePage({Key? key}) : super(key: key);
-
   double ratio = 0.2;
 
   @override
   Widget build(BuildContext context) {
-    //   return T2Tabs();
-    // }
-
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -57,12 +48,19 @@ class SchedulePage extends StatelessWidget {
             ElevatedButton(
               onPressed: () => showModalBottomSheet(
                   backgroundColor: Colors.transparent,
-                  // enableDrag: true,
-
                   isScrollControlled: true,
                   context: context,
                   builder: (context) => scrollViewTabBar()),
               child: const Text("Schedules 5.0"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Pano()),
+                );
+              },
+              child: const Text("Pano re"),
             ),
           ],
         ),
@@ -82,9 +80,7 @@ class SchedulePage extends StatelessWidget {
             label: 'School',
           ),
         ],
-        // currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
-        // onTap: () =>
       ),
     );
   }

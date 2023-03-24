@@ -2,7 +2,6 @@
 import "package:flutter/material.dart";
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:get/get.dart';
-import 'package:flip_card/flip_card.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -113,7 +112,7 @@ List<Appointment> getAppointments() {
       DateTime(today.year, today.month, today.day, 9, 0, 0);
   final DateTime endTime = startTime.add(const Duration(hours: 2));
 
-  eventController.allDates.forEach((event) {
+  eventController.allEventTimes.forEach((event) {
     print("NAME: ${event.name}");
     print("START TIME: ${event.startTime}");
     print("ENDING TIME: ${event.endTime}");
