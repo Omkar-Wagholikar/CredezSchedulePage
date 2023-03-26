@@ -40,6 +40,10 @@ dependencies:
   google_fonts: ^4.0.3
   get: ^4.6.5
   panorama: ^0.4.1
+  circle_wheel_scroll: ^0.0.1+1
+  flutter_secure_storage: ^8.0.0
+  circular_menu: ^2.0.1
+  curved_navigation_bar: ^1.0.3
   # motion_sensors: ^0.1.0
 
 dev_dependencies:
